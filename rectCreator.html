@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color:dimgrey">
+    
+    <script>
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    
+        svg.setAttribute('width', 200 + 'px');
+        svg.setAttribute('height', 300 + 'px');
+        svg.setAttribute('style', 'background-color:transparent; ');
+
+        createElem(15, 10, 80, 28, "Первый","")
+        createElem(15, 50, 75, 28, "Второй", "")
+        createElem(15, 90, 75, 28, "Третий", "")
+        createElem(15, 130, 100, 28, "Четвёртый", "")
+        createElem(15, 170, 65, 28, "Пятый", "")
+        createElem(15, 210, 70, 28, "Домой", "Main.html")
+        function createElem(x,y,w,h,text,ref) {
+
+            var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttribute("width", w);
+            rect.setAttribute("height", h);
+            rect.setAttribute("x", x);
+            rect.setAttribute("y", y);
+            rect.setAttribute("style", "fill:black; filter:blur(1px)");
+
+            var rect1 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect1.setAttribute("width", w);
+            rect1.setAttribute("height", h);
+            rect1.setAttribute("x", x);
+            rect1.setAttribute("y", y);
+            rect1.setAttribute("style", "fill:#696969; cursor:pointer;");
+            rect1.onclick = function () { location.replace(ref); }
+
+            var textline = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            textline.setAttribute("x", x + 5);
+            textline.setAttribute("y", y + 20);
+            textline.setAttribute("style", "font-size:20px; font-family:Segoe UI; fill:white; font-weight:100; cursor:pointer;")
+            textline.textContent = text;
+            textline.onclick = function () { location.replace(ref); }
+
+            svg.appendChild(rect);
+            svg.appendChild(rect1);
+            svg.appendChild(textline);
+
+            document.body.appendChild(svg);
+        }
+    </script>
+
+    
+</body>
+</html>
