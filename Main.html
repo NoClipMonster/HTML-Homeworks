@@ -3,7 +3,6 @@
 
 <head>
     <title>Главная страница</title>    
-    <meta charset="UTF-8">
 </head>
 <body>
 
@@ -17,19 +16,6 @@
             left: 0;
             z-index: 0;
             background-color: rgb(100 100 100);
-        }
-
-        .apo1 {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0px;
-            z-index: -1;
-        }
-
-        h1 {
-            position: relative;
-            text-align: center;
         }
 
         #maintxt {
@@ -46,18 +32,12 @@
             font-weight: 100;
             transform: scale(%)
         }
-
         .quarect {
             position: relative;
             z-index: 3;
             fill: rgb(100,100,100);
             /*96,96,96*/
-        }
-
-        .quaText {
-            position: relative;
-            z-index: 2;
-        }
+        } 
 
         #MainSvg {
             width: 400px;
@@ -78,19 +58,7 @@
             position: absolute;
             z-index: 1;
             top: 0;
-        }
-
-        iframe {
-            position: absolute;
-            z-index: 3;
-            width: 400px;
-            height: 400px;
-            bottom: 10px;
-            left: 50%;
-            -webkit-transform: translateX(-50%);
-            -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
-        }
+        }  
     </style>
 
     <canvas id="BackNoise" class="grain"></canvas>
