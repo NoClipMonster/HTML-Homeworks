@@ -1,43 +1,4 @@
-<!DOCTYPE html>
-<html>
-<body>
-
-    <style>
-        .grain {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background-color: rgb(100 100 100);
-        }
-
-        .apo1 {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0px;
-            z-index: -1;
-        }
-
-        input {
-            width: 50px;
-        }
-
-        label {
-            color: white;
-            background-color: rgb(148, 141, 141,0.5)
-        }
-      
-    </style>
-
-    <canvas id="BackNoise" class="grain"></canvas>
-
-    <button onclick='location.replace("Main.html")'> Вернуться</button><br />
-
-    <script>
-        var Grain = function () {
+  var Grain = function () {
             function Grain(el) {
                 /*
                  Options
@@ -46,7 +7,7 @@
                 this.patternAlpha = 8; // 0 <= x <= 255,
                 var seed = 16758672;
 
-                this.canvas = el;
+                this.canvas = el
                 this.ctx = this.canvas.getContext('2d');
 
                 this.patternCanvas = document.createElement('canvas');
@@ -101,7 +62,3 @@
 
         var el = document.getElementById('BackNoise');
         var grain = new Grain(el);
-
-    </script>
-</body>
-</html>

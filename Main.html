@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
 </head>
 <body>
-   
+
     <style>
-        
+
         .grain {
             width: 100%;
             height: 100%;
@@ -44,7 +44,7 @@
             fill: white;
             font-family: Segoe UI;
             font-weight: 100;
-            transform:scale(%)
+            transform: scale(%)
         }
 
         .quarect {
@@ -64,22 +64,33 @@
             height: 100%;
             position: absolute;
             z-index: 1;
+            bottom: 1px;
             left: 50%;
-            bottom:1px;
             -webkit-transform: translateX(-50%);
             -ms-transform: translateX(-50%);
             transform: translateX(-50%);
-        border:1px solid ;
-            }
+            border: 1px solid;
+        }
 
         .sideSVG {
-            height: 100%;         
+            height: 100%;
             background-color: rgb(0,0,0,0.1);
             position: absolute;
             z-index: 1;
-            top:0;
+            top: 0;
         }
 
+        iframe {
+            position: absolute;
+            z-index: 3;
+            width: 400px;
+            height: 400px;
+            bottom: 10px;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+        }
     </style>
 
     <canvas id="BackNoise" class="grain"></canvas>
@@ -91,7 +102,7 @@
         <text id="maintxt" text-anchor='middle' x=50% y=40px>Главная страница</text>
 
     </svg>
-
+    <script src="BackGroundNoise.js"></script>
     <script>
         /*function getTextWidth(text, font = getCanvasFontSize()) {
 // re-use canvas object for better performance
@@ -118,10 +129,12 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
         var MainSvg = document.getElementById("MainSvg");
         var BordCl = document.getElementsByClassName("sideSVG");
         var MainSvgWidth = 400;
-        createElem(15, 50, 210, 28, "Домашняя работу №1", "HomeWork 1.html");
+        BordCl[0].setAttribute("width", (window.innerWidth / 2) - MainSvgWidth / 2);
+        BordCl[1].setAttribute("width", (window.innerWidth / 2) - MainSvgWidth / 2);
+      
+        createElem(15, 50, 210, 28, "Домашняя работу №1", "HomeWork_1.html");
         createElem(15, 90, 125, 28, "Шумный фон", "noise.html");
         createElem(15, 130, 170, 28, "Генератор кнопок", "rectCreator.html");
-        createElem(15, 170, 120, 28, "Yandex.Music", "YandexAPI.html")
         function createElem(x, y, w, h, text, ref) {
 
             var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -150,74 +163,6 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
             MainSvg.appendChild(rect1);
             MainSvg.appendChild(textline);
         }
-
-        var Grain = function () {
-            function Grain(el) {
-                /*
-                 Options
-                */
-                this.patternSize = 100;
-                this.patternAlpha = 8; // 0 <= x <= 255,
-                var seed = 16758672;
-
-                this.canvas = el;
-                this.ctx = this.canvas.getContext('2d');
-
-                this.patternCanvas = document.createElement('canvas');
-                this.patternCanvas.width = this.patternSize;
-                this.patternCanvas.height = this.patternSize;
-                this.patternCtx = this.patternCanvas.getContext('2d');
-                this.patternData = this.patternCtx.createImageData(this.patternSize, this.patternSize);
-                this.patternPixelDataLength = this.patternSize * this.patternSize * 4; // rgba = 4
-                this.resize = this.resize.bind(this);
-
-                window.addEventListener('resize', this.resize);
-
-                var patternPixelDataLength = this.patternPixelDataLength;
-                var patternData = this.patternData;
-                var patternAlpha = this.patternAlpha;
-                var patternCtx = this.patternCtx;
-
-                // put a random shade of gray into every pixel of the pattern
-                for (var i = 0; i < patternPixelDataLength; i += 4) {
-                    const r = ((21 * seed + 10) % 99) / 88;
-                    seed = seed + r * 19;
-                    const value = r * 255;
-                    patternData.data[i] = value;
-                    patternData.data[i + 1] = value;
-                    patternData.data[i + 2] = value;
-                    patternData.data[i + 3] = patternAlpha;
-                }
-
-                patternCtx.putImageData(patternData, 0, 0);
-                this.resize();
-
-            }
-            Grain.prototype.resize = function resize() {
-                this.canvas.width = window.innerWidth * devicePixelRatio;
-                this.canvas.height = window.innerHeight * devicePixelRatio;
-                BordCl[0].setAttribute("width", (window.innerWidth / 2) - MainSvgWidth/2);
-                BordCl[1].setAttribute("width", (window.innerWidth / 2) - MainSvgWidth/2);
-                this.draw();
-            };
-            Grain.prototype.draw = function draw() {
-                var ctx = this.ctx;
-                var patternCanvas = this.patternCanvas;
-                var canvas = this.canvas;
-                var width = canvas.width;
-                var height = canvas.height;
-                // clear canvas
-                ctx.clearRect(0, 0, width, height);
-                // fill the canvas using the pattern
-                ctx.fillStyle = ctx.createPattern(patternCanvas, 'repeat');
-                ctx.fillRect(0, 0, width, height);
-            };
-            return Grain;
-        }();
-
-        var el = document.getElementById('BackNoise');
-        var grain = new Grain(el);
-
     </script>
 
 </body>
