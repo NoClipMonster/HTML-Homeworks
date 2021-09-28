@@ -9,14 +9,19 @@
         }
 
         button {
-            width: 100px;
-            height: 40px;
-            position: absolute;
+            width: 160px;
+            height: 35px;
             top: 10px;
+            left: 10px;
             background-color: rgb(128,128, 128,0.1);
+            font-size: 20px;
+            font-family: Segoe UI;
+            font-weight: 100;
+            position: absolute;
+            color: white;
         }
     </style>
-
+  
     <button onclick="crEl()">Создать кнопку</button>
 
     <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -28,7 +33,7 @@
         var ny = 1;
         svg.setAttribute('width', 94 + '%');
         svg.setAttribute('height', 500 + 'px');
-            createElem(15, 10, 70, 28, "Домой", "Main.html")
+        createElem(15, 10, 70, 28, "Домой", "Main.html")
 
 
         function crEl() {
@@ -36,12 +41,12 @@
                 nx++;
                 ny = 1;
             }
-                createElem(80 * nx + 15, 40 * ny + 10, 70, 28, nx + " " + ny, "");
+            createElem(80 * nx + 15, 40 * ny + 10, 70, 28, nx + " " + ny, "");
             ny++;
 
         }
         function createElem(x, y, w, h, text, ref) {
-          
+
             var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
             rect.setAttribute("width", w);
             rect.setAttribute("height", h);
@@ -55,7 +60,7 @@
             rect1.setAttribute("x", x);
             rect1.setAttribute("y", y);
             rect1.setAttribute("style", "fill:#696969; cursor:pointer;");
-            if (ref != "")  rect1.onclick = function () { location.replace(ref); }
+            if (ref != "") rect1.onclick = function () { location.replace(ref); }
 
             var textline = document.createElementNS("http://www.w3.org/2000/svg", "text");
             textline.setAttribute("x", x + 5);
@@ -70,9 +75,9 @@
 
             document.body.appendChild(svg);
         }
-        
+
     </script>
-    
+
 
 </body>
 </html>

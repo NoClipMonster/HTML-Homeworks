@@ -32,12 +32,13 @@
             font-weight: 100;
             transform: scale(%)
         }
+
         .quarect {
             position: relative;
             z-index: 3;
             fill: rgb(100,100,100);
             /*96,96,96*/
-        } 
+        }
 
         #MainSvg {
             width: 400px;
@@ -58,19 +59,20 @@
             position: absolute;
             z-index: 1;
             top: 0;
-        }  
+        }
     </style>
 
-    <canvas id="BackNoise" class="grain"></canvas>
+
 
     <svg class="sideSVG" style="left:0"></svg>
     <svg class="sideSVG" style="right:0"></svg>
+
     <svg id="MainSvg">
-
         <text id="maintxt" text-anchor='middle' x=50% y=40px>Главная страница</text>
-
     </svg>
+    <canvas id="BackNoise" class="grain"></canvas>
     <script src="BackGroundNoise.js"></script>
+
     <script>
         /*function getTextWidth(text, font = getCanvasFontSize()) {
 // re-use canvas object for better performance
@@ -99,10 +101,11 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
         var MainSvgWidth = 400;
         BordCl[0].setAttribute("width", (window.innerWidth / 2) - MainSvgWidth / 2);
         BordCl[1].setAttribute("width", (window.innerWidth / 2) - MainSvgWidth / 2);
-      
+
         createElem(15, 50, 210, 28, "Домашняя работу №1", "HomeWork_1.html");
         createElem(15, 90, 125, 28, "Шумный фон", "noise.html");
         createElem(15, 130, 170, 28, "Генератор кнопок", "rectCreator.html");
+        createElem(15, 170, 210, 28, "Домашняя работу №2", "HomeWork_2.html");
         function createElem(x, y, w, h, text, ref) {
 
             var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
