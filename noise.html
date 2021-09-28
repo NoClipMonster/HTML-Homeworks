@@ -9,7 +9,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 1;
+            z-index: -1;
             background-color: rgb(100 100 100);
         }
 
@@ -21,18 +21,32 @@
             z-index: -1;
         }
 
-        button {
-            position: absolute;
-            z-index: 2;
+        input {
+            width: 50px;
+        }
+
+        label {
+            color: white;
+            background-color: rgb(148, 141, 141,0.5)
         }
     </style>
-    <button onclick='location.replace("Main.html")'>Вернуться</button>
+
     <canvas id="BackNoise" class="grain"></canvas>
 
+    <button onclick='location.replace("Main.html")'> Вернуться</button><br />
+
+    <input onchange="alert(alpIN)" value="8" id="alpha" name="alpha" type="number" />
+    <label for="alpha">Контрастность (0 ... 255)</label><br />
+
+    <input onchange="resize()" value="100" id="size" name="size" type="number" />
+    <label for="size">Размер шаблона</label><br />
+
+    <input onchange="resize()" value="16758672" id="seed" name="seed" type="number" style="width:75px" />
+    <label for="seed">Зерно шаблона</label><br />
+
+
+
     <script>
-
-        
-
         var Grain = function () {
             function Grain(el) {
                 /*
@@ -73,6 +87,7 @@
 
                 patternCtx.putImageData(patternData, 0, 0);
                 this.resize();
+
             }
             Grain.prototype.resize = function resize() {
                 this.canvas.width = window.innerWidth * devicePixelRatio;
@@ -90,8 +105,6 @@
                 // fill the canvas using the pattern
                 ctx.fillStyle = ctx.createPattern(patternCanvas, 'repeat');
                 ctx.fillRect(0, 0, width, height);
-
-               
             };
             return Grain;
         }();

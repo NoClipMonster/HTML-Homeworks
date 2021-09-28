@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html>
 <body style="background-color:dimgrey">
+    <style>
+        svg {
+            background-color: transparent;
+            position: absolute;
+            top: 60px;
+        }
+        button {
+            width: 100px;
+            height:40px;
+            position: absolute;
+            top:10px;
+            background-color:rgb(128 ,128, 128,0.1);
+        }
+    </style>
     
+    <button onclick="crEl()">Создать кнопку</button>
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
     <script>
-        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    
-        svg.setAttribute('width', 200 + 'px');
-        svg.setAttribute('height', 300 + 'px');
-        svg.setAttribute('style', 'background-color:transparent; ');
+        var svg = document.getElementById( "svg");
+        var nx = 0;
+        var ny = 1;
+        svg.setAttribute('width', 94 + '%');
+        svg.setAttribute('height', 500 + 'px');
 
-        createElem(15, 10, 80, 28, "Первый","")
-        createElem(15, 50, 75, 28, "Второй", "")
-        createElem(15, 90, 75, 28, "Третий", "")
-        createElem(15, 130, 100, 28, "Четвёртый", "")
-        createElem(15, 170, 65, 28, "Пятый", "")
-        createElem(15, 210, 70, 28, "Домой", "Main.html")
+        createElem(15, 10, 70, 28, "Домой", "Main.html")
+        function crEl() {
+            if ((40 * ny + 10) > 150) {
+                nx++;
+                ny = 1;
+            }
+            createElem(80*nx+15, 40 * ny + 10, 70, 28,nx +" "+ ny, "")
+            ny++;
+        }
         function createElem(x,y,w,h,text,ref) {
-
             var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
             rect.setAttribute("width", w);
             rect.setAttribute("height", h);
