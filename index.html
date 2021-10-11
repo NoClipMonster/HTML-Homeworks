@@ -64,12 +64,13 @@
 
 
 
-    <svg class="sideSVG" style="left:0"></svg>
-    <svg class="sideSVG" style="right:0"></svg>
+    <svg class="sideSVG" id="left" style="left:0"></svg>
+    <svg class="sideSVG" id="right" style="right:0"></svg>
 
     <svg id="MainSvg">
         <text id="maintxt" text-anchor='middle' x=50% y=40px>Главная страница</text>
     </svg>
+
     <canvas style="background-color:transparent" id="canvas"></canvas>
     <canvas id="BackNoise" class="grain"></canvas>
     <script src="BackGroundNoise.js"></script>
@@ -137,12 +138,18 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
             MainSvg.appendChild(rect1);
             MainSvg.appendChild(textline);
         }
+        
+
         let myGamePiece = new Array();
 
         function start() {
-            myGamePiece[0] = new component(Math.floor(Math.random() * 50) + 50, "red", 100, 300);
-            myGamePiece[1] = new component(Math.floor(Math.random() * 50) + 50, "green", 100, 300);
-            myGamePiece[2] = new component(Math.floor(Math.random() * 50) + 50, "blue", 100, 300);
+           function rand(max) {
+               return Math.floor(Math.random() * max)
+            }
+            for (var g = 0; g < 5; g++) {
+                myGamePiece[g] = new component("rgb(" + rand(256) + "," + rand(256) + "," + rand(256) +")");
+            }
+            
             myGameArea.start();
         }
 
@@ -151,51 +158,55 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
             start: function () {
                 this.canvas.width = (window.innerWidth / 2) - MainSvgWidth / 2;
                 this.canvas.height = window.innerHeight;
-                this.canvas.style = "z-index:4; position:absolute;  top: 0px; left: 0px;";
-
+                this.canvas.style = "z-index:1; position:absolute; top: 0px; left: 0px;";
                 this.context = this.canvas.getContext("2d");
-                document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                 this.interval = setInterval(updateGameArea, 17);
             },
             clear: function () {
                 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             }
         }
-       //     < path d = "m 150 170 50 -50 q 5 -5 10 0 l 50 50 q 5 5 0 10 h -110 q -5 -5 0 -10 z" stroke = "blue" stroke-width="5" fill = "none" />
-        function component(size, color, x, y) {
-            this.width = size;
-            this.height = size;
-            this.x = x;
-            this.y = y;
+       
+        function component(color) {
+            this.width = 110;
+            this.height = 95;
+            this.x = 100;
+            this.y = Math.floor(Math.random() * (window.innerHeight - 200))+50;
             this.xdir = Math.floor(Math.random() * 10) - 5;
             this.ydir = Math.floor(Math.random() * 10) - 5;
             this.update = function () {
+
                 ctx = myGameArea.context;
                 
+             //  ctx.fillRect(this.x + 20, this.y + 25, this.width, this.height);
+;
+                ctx.fill();
+                ctx.fillStyle = color;
                 ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.bezierCurveTo(75, 37, 70, 25, 50, 25);
-                ctx.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
-                ctx.bezierCurveTo(20, 80, 40, 102, 75, 120);
-                ctx.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
-                ctx.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
-                ctx.bezierCurveTo(85, 25, 75, 37, 75, 40);
+                ctx.moveTo(75+this.x, 37+ this.y);
+                bezierCurveTo(75, 37, 70, 25, 50, 25, this.x, this.y);
+                bezierCurveTo(20, 25, 20, 62.5, 20, 62.5, this.x, this.y);
+                bezierCurveTo(20, 80, 40, 102, 75, 120, this.x, this.y);
+                bezierCurveTo(110, 102, 130, 80, 130, 62.5, this.x, this.y);
+                bezierCurveTo(130, 62.5, 130, 25, 100, 25, this.x, this.y);
+                bezierCurveTo(85, 25, 75, 37, 75, 40, this.x, this.y);
                 ctx.fill();
                 ctx.closePath();
-               /* ctx.fillStyle = color;
-                ctx.fillRect(this.x, this.y, this.width, this.height);*/
+                function bezierCurveTo(q, w, e, r, t, u, xx, yy) {
+                    ctx.bezierCurveTo(q + xx, w + yy, e + xx, r + yy, t + xx, u + yy);
+                }
+                //ctx.fillRect(this.x, this.y, this.width, this.height);
             }
         }
        
-       
         function updateGameArea() {
             myGameArea.clear();
-            for (var g = 0; g < 3; g++)
+            for (var g = 0; g < 5; g++)
             {
                 myGamePiece[g].x += myGamePiece[g].xdir;
                 myGamePiece[g].y += myGamePiece[g].ydir;
-                if (myGamePiece[g].x + myGamePiece[g].width >= myGameArea.canvas.width || myGamePiece[g].x <= 0) { myGamePiece[g].xdir *= -1 }
-                if (myGamePiece[g].y + myGamePiece[g].height >= myGameArea.canvas.height || myGamePiece[g].y <= 0) { myGamePiece[g].ydir *= -1 }
+                if (myGamePiece[g].x+20 + myGamePiece[g].width >= myGameArea.canvas.width || myGamePiece[g].x+20 <= 0) { myGamePiece[g].xdir *= -1 }
+                if (myGamePiece[g].y+25 + myGamePiece[g].height >= myGameArea.canvas.height || myGamePiece[g].y+25 <= 0) { myGamePiece[g].ydir *= -1 }
                 myGamePiece[g].update();
             }
                
