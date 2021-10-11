@@ -159,7 +159,7 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
                 function rand(max) {
                     return Math.floor(Math.random() * max)
                 }
-                for (var g = 0; g < 5; g++) {
+                for (var g = 0; g < 100; g++) {
                     myGamePiece[g] = new component("rgb(" + rand(256) + "," + rand(256) + "," + rand(256) + ")");
                 }
             },
@@ -202,7 +202,7 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
        
         function updateGameArea() {
             myGameArea.clear();
-            for (var g = 0; g < 5; g++)
+            for (var g = 0; myGamePiece.length; g++)
             {
                 myGamePiece[g].x += myGamePiece[g].xdir;
                 myGamePiece[g].y += myGamePiece[g].ydir;
