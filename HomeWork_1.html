@@ -93,8 +93,7 @@
                 start: function () {
                     this.canvas.width = 200;
                     this.canvas.height = 200;
-
-
+                   
                     this.context = this.canvas.getContext("2d");
                     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                     this.interval = setInterval(updateGameArea, 17);
@@ -119,6 +118,7 @@
             var ydir = 1;
             var bo = 1;
             var started = 0;
+
             function updateGameArea() {
                 if (bo == 0)
                     return;
@@ -129,6 +129,7 @@
                 if (myGamePiece.y + myGamePiece.height >= myGameArea.canvas.height || myGamePiece.y <= 0) { ydir *= -1 }
                 myGamePiece.update();
             }
+
         </script>
 
     </div>
