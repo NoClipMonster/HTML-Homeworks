@@ -143,12 +143,7 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
         let myGamePiece = new Array();
 
         function start() {
-           function rand(max) {
-               return Math.floor(Math.random() * max)
-            }
-            for (var g = 0; g < 5; g++) {
-                myGamePiece[g] = new component("rgb(" + rand(256) + "," + rand(256) + "," + rand(256) +")");
-            }
+          
             
             myGameArea.start();
         }
@@ -161,6 +156,12 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
                 this.canvas.style = "z-index:1; position:absolute; top: 0px; left: 0px;";
                 this.context = this.canvas.getContext("2d");
                 this.interval = setInterval(updateGameArea, 17);
+                function rand(max) {
+                    return Math.floor(Math.random() * max)
+                }
+                for (var g = 0; g < 5; g++) {
+                    myGamePiece[g] = new component("rgb(" + rand(256) + "," + rand(256) + "," + rand(256) + ")");
+                }
             },
             clear: function () {
                 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -170,8 +171,8 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
         function component(color) {
             this.width = 110;
             this.height = 95;
-            this.x = Math.floor(Math.random() * (myGameArea.canvas.width-100)+30);
-            this.y = Math.floor(Math.random() * (window.innerHeight - 200))+50;
+            this.x = Math.floor(Math.random() * (myGameArea.canvas.width-200)+30);
+            this.y = Math.floor(Math.random() * (myGameArea.canvas.height - 220));
             this.xdir = Math.floor(Math.random() * 10) - 5;
             this.ydir = Math.floor(Math.random() * 10) - 5;
             this.update = function () {
