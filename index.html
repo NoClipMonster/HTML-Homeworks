@@ -170,7 +170,7 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
         function component(color) {
             this.width = 110;
             this.height = 95;
-            this.x = 100;
+            this.x = Math.floor(Math.random() * (myGameArea.canvas.width-100)+30);
             this.y = Math.floor(Math.random() * (window.innerHeight - 200))+50;
             this.xdir = Math.floor(Math.random() * 10) - 5;
             this.ydir = Math.floor(Math.random() * 10) - 5;
