@@ -110,6 +110,7 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
         createElem(15, 90, 125, 28, "Шумный фон", "noise.html");
         createElem(15, 130, 170, 28, "Генератор кнопок", "rectCreator.html");
         createElem(15, 170, 210, 28, "Домашняя работу №2", "HomeWork_2.html");
+        createElem(15, 210, 100, 28, "Сердечки", "heart.html");
         function createElem(x, y, w, h, text, ref) {
 
             var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -137,84 +138,7 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
             MainSvg.appendChild(rect);
             MainSvg.appendChild(rect1);
             MainSvg.appendChild(textline);
-        }
-        
-
-        let myGamePiece = new Array();
-
-        function start() {
-         myGameArea.start();
-        }
-
-        var myGameArea = {
-            canvas: canvas,
-            start: function () {
-                this.canvas.width = (window.innerWidth / 2) - MainSvgWidth / 2;
-                this.canvas.height = window.innerHeight;
-                this.canvas.style = "z-index:1; position:absolute; top: 0px; left: 0px;";
-                this.context = this.canvas.getContext("2d");
-                this.interval = setInterval(updateGameArea, 17);
-                function rand(max) {
-                    return Math.floor(Math.random() * max)
-                }
-                for (var g = 0; g < 1; g++) {
-                    myGamePiece[g] = new component("rgb(" + rand(256) + "," + rand(256) + "," + rand(256) + ")");
-                }
-            },
-            clear: function () {
-                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            }
-        }
-       
-        function component(color) {
-            this.width = 110;
-            this.height = 95;
-            this.x = Math.floor(Math.random() * (myGameArea.canvas.width-200)+30);
-            this.y = Math.floor(Math.random() * (myGameArea.canvas.height - 220));
-            this.xdir = Math.floor(Math.random() * 10) - 5;
-            this.ydir = Math.floor(Math.random() * 10) - 5;
-            this.update = function () {
-
-                ctx = myGameArea.context;
-                
-             //  ctx.fillRect(this.x + 20, this.y + 25, this.width, this.height);
-;
-                ctx.fill();
-                ctx.fillStyle = color;
-                ctx.beginPath();
-                ctx.moveTo(75+this.x, 37+ this.y);
-                bezierCurveTo(75, 37, 70, 25, 50, 25, this.x, this.y);
-                bezierCurveTo(20, 25, 20, 62.5, 20, 62.5, this.x, this.y);
-                bezierCurveTo(20, 80, 40, 102, 75, 120, this.x, this.y);
-                bezierCurveTo(110, 102, 130, 80, 130, 62.5, this.x, this.y);
-                bezierCurveTo(130, 62.5, 130, 25, 100, 25, this.x, this.y);
-                bezierCurveTo(85, 25, 75, 37, 75, 40, this.x, this.y);
-                ctx.fill();
-                ctx.closePath();
-                function bezierCurveTo(q, w, e, r, t, u, xx, yy) {
-                    ctx.bezierCurveTo(q + xx, w + yy, e + xx, r + yy, t + xx, u + yy);
-                }
-                //ctx.fillRect(this.x, this.y, this.width, this.height);
-            }
-        }
-        bezierCurveTo(85, 25, 75, 37, 75, 40, this.x, this.y);
-       
-        function bezierCurveTo(q, w, e, r, t, u, xx, yy) {
-            ctx.bezierCurveTo(q + xx, w + yy, e + xx, r + yy, t + xx, u + yy);
-        }
-        function updateGameArea() {
-            myGameArea.clear();
-            for (var g = 0; myGamePiece.length; g++)
-            {
-                myGamePiece[g].x += myGamePiece[g].xdir;
-                myGamePiece[g].y += myGamePiece[g].ydir;
-                if (myGamePiece[g].x+20 + myGamePiece[g].width >= myGameArea.canvas.width || myGamePiece[g].x+20 <= 0) { myGamePiece[g].xdir *= -1 }
-                if (myGamePiece[g].y+25 + myGamePiece[g].height >= myGameArea.canvas.height || myGamePiece[g].y+25 <= 0) { myGamePiece[g].ydir *= -1 }
-                myGamePiece[g].update();
-            }
-               
-           
-        }
+        }    
     </script>
 
 </body>
