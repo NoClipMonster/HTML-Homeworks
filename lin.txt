@@ -1,0 +1,127 @@
+/*
+           List<List<double>> costs = new List<List<double>>{
+           new List<double> {2, 4, 1},
+           new List<double> {5, 2, 1},
+           new List<double> {2, 3, 4 }};
+           List<double> surplus = new List<double> { 36, 47, 37 };
+           */
+        public Form1()
+        {
+            InitializeComponent();
+            double[][] costs = new double[][]{
+            new double[]{ 18,15,12},
+            new double[]{ 6,4,8},
+            new double[]{ 5,3,3}};
+            double[] surplus = new double[] { 360,192,180 };
+
+            double[] earn = new double[] { 9,10,16 };
+            double[] X = ReshLinUr(costs, surplus);
+
+            if (X != null)
+                for (int i = 0; i < X.Length; i++)
+                {
+                    label1.Text += X[i];
+                    if (i + 1 != X.Length)
+                        label1.Text += " : ";
+                }
+        }
+
+        public double[][] Lader(double[][] Matx)
+        {
+            int kZeros = 0;
+            for (int itt = 0; itt < Matx.Length - kZeros; itt++)
+            {
+                int iMax = 0;
+                double[] bufCosts;
+                for (int i = itt; i < Matx.Length; i++)
+                    if (Matx[i][itt] > Matx[iMax][itt])
+                        iMax = i;
+
+                bufCosts = Matx[itt];
+                Matx[itt] = Matx[iMax];
+
+                Matx[iMax] = bufCosts;
+
+                for (int i = itt; i < Matx.Length; i++)
+                {
+                    for (int j = Matx[i].Length - 1; j >= itt; j--)
+                        Matx[i][j] = Matx[i][j] / Matx[i][itt];
+                }
+                for (int i = itt + 1; i < Matx.Length; i++)
+                {
+                    for (int j = Matx[i].Length - 1; j >= itt; j--)
+                        Matx[i][j] -= Matx[itt][j];
+                }
+                for (int i = 0; i < Matx.Length; i++)
+                {
+                    double sum = 0;
+                    for (int j = 0; j < Matx[i].Length - 1; j++)
+                        sum += Matx[i][j];
+                    if (sum == 0)
+                    {
+                        double[][] buf = new double[Matx.Length - 1][];
+                        for (int j = 0; j < buf.Length; j++)
+                        {
+                            buf[j] = Matx[j];
+                        }
+                        Matx = buf;
+                    }
+                }
+            }
+            return Matx;
+        }
+        public int Rank(double[][] matrix)
+        {
+            int rank = 0;
+            foreach (var item in matrix)
+            {
+                double sum = 0;
+                for (int i = 0; i < item.Length; i++)
+                    sum += item[i];
+                if (sum != 0)
+                    rank++;
+
+            }
+            return rank;
+        }
+        public double[] ReshLinUr(double[][] coeff1, double[] freeCoeff1)
+        {
+            double[][] extendedMatx = new double[coeff1.Length][];
+
+            for (int i = 0; i < coeff1.Length; i++)
+            {
+                extendedMatx[i] = new double[coeff1[i].Length + 1];
+                for (int j = 0; j < coeff1[i].Length; j++)
+                    extendedMatx[i][j] = coeff1[i][j];
+
+                extendedMatx[i][extendedMatx[i].Length - 1] = freeCoeff1[i];
+            }
+
+            extendedMatx = Lader(extendedMatx);
+            int extRank = Rank(extendedMatx);
+
+            /*
+              if (extRank != coefRank)
+              {
+                  return null;
+              }*/
+
+            double[] X = new double[extendedMatx[0].Length - 1];
+            for (int i = 0; i < X.Length; i++)
+                X[i] = 0;
+
+
+            for (int i = extendedMatx.Length - 1; i >= 0; i--)
+            {
+                X[i] = extendedMatx[i][extendedMatx[i].Length - 1] - Sum();
+                double Sum()
+                {
+                    double sum = 0;
+                    for (int j = 0; j < X.Length; j++)
+                        sum += X[j] * extendedMatx[i][j];
+                    return sum;
+                }
+            }
+
+            return X;
+        }
