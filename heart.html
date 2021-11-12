@@ -76,11 +76,12 @@
             myGameArea.clear();
             for (var g = 0; myGamePiece.length; g++)
             {
-                myGamePiece[g].updatecolor();
+               
                 myGamePiece[g].x += myGamePiece[g].xdir;
                 myGamePiece[g].y += myGamePiece[g].ydir;
                 if (myGamePiece[g].x+20 + myGamePiece[g].width >= myGameArea.canvas.width || myGamePiece[g].x+20 <= 0) { myGamePiece[g].xdir *= -1 }
-                if (myGamePiece[g].y+25 + myGamePiece[g].height >= myGameArea.canvas.height || myGamePiece[g].y+25 <= 0) { myGamePiece[g].ydir *= -1 }
+                if (myGamePiece[g].y + 25 + myGamePiece[g].height >= myGameArea.canvas.height || myGamePiece[g].y + 25 <= 0) { myGamePiece[g].ydir *= -1 }
+                myGamePiece[g].updatecolor();
                 myGamePiece[g].update();
             }  
         }

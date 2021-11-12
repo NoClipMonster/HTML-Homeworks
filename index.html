@@ -4,7 +4,7 @@
 <head>
     <title>Главная страница</title>    
 </head>
-<body onload="start()">
+<body>
 
     <style>
 
@@ -77,35 +77,13 @@
 
     <script>
         
-       
-        /*function getTextWidth(text, font = getCanvasFontSize()) {
-// re-use canvas object for better performance
-const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
-const context = canvas.getContext("2d");
-context.font = font;
-const metrics = context.measureText(text);
-return metrics.width;
-}
-
-function getCssStyle(element, prop) {
-return window.getComputedStyle(element, null).getPropertyValue(prop);
-}
-
-function getCanvasFontSize(el = document.body) {
-const fontWeight = getCssStyle(el, 'font-weight') || 'normal';
-const fontSize = getCssStyle(el, 'font-size') || '16px';
-const fontFamily = getCssStyle(el, 'font-family') || 'Times New Roman';
-
-return `${fontWeight} ${fontSize} ${fontFamily}`;
-}
-
-console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
+      
         var MainSvg = document.getElementById("MainSvg");
         var BordCl = document.getElementsByClassName("sideSVG");
         var MainSvgWidth = 400;
         BordCl[0].setAttribute("width", (window.innerWidth / 2) - MainSvgWidth / 2);
         BordCl[1].setAttribute("width", (window.innerWidth / 2) - MainSvgWidth / 2);
-
+        var kol = 0;
         createElem(15, 50, 210, 28, "Домашняя работу №1", "HomeWork_1.html");
         createElem(15, 90, 125, 28, "Шумный фон", "noise.html");
         createElem(15, 130, 170, 28, "Генератор кнопок", "rectCreator.html");
@@ -119,6 +97,7 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
             rect.setAttribute("x", x);
             rect.setAttribute("y", y);
             rect.setAttribute("style", "fill:black; filter:blur(1px)");
+            rect.setAttribute("id", "downrect" + kol);
 
             var rect1 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
             rect1.setAttribute("width", w);
@@ -127,6 +106,9 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
             rect1.setAttribute("y", y);
             rect1.setAttribute("style", "fill:#696969; cursor:pointer;");
             rect1.onclick = function () { location.replace(ref); }
+            rect1.setAttribute("class", kol);
+            rect1.onmouseenter = function () { document.getElementById("downrect" + rect1.getAttribute("class")).setAttribute("style", "fill:red; filter:blur(4px)"); };
+            rect1.onmouseleave = function () { document.getElementById("downrect" + rect1.getAttribute("class")).setAttribute("style", "fill:black; filter:blur(1px)"); };
 
             var textline = document.createElementNS("http://www.w3.org/2000/svg", "text");
             textline.setAttribute("x", x + 5);
@@ -134,11 +116,17 @@ console.log(getTextWidth("hello there!", "bold 12pt arial"));  // close to 86*/
             textline.setAttribute("style", "font-size:20px; font-family:Segoe UI; fill:white; font-weight:100; cursor:pointer;")
             textline.textContent = text;
             textline.onclick = function () { location.replace(ref); }
-
+            textline.setAttribute("class", kol);
+            textline.onmouseenter = function () { document.getElementById("downrect" + textline.getAttribute("class")).setAttribute("style", "fill:red; filter:blur(4px)"); };
+            textline.onmouseleave = function () { document.getElementById("downrect" + textline.getAttribute("class")).setAttribute("style", "fill:black; filter:blur(1px)"); };
             MainSvg.appendChild(rect);
             MainSvg.appendChild(rect1);
             MainSvg.appendChild(textline);
+            kol++;
         }    
+        function onEnter(id) {
+          
+        }
     </script>
 
 </body>
